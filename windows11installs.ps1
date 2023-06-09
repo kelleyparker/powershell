@@ -1,92 +1,69 @@
-#Installs latest versions of Firefox, Chrome, Steam, on Windows 11 - should work on Windows 10 as well
-
-# Define the URLs and installation directories for Steam, Firefox, and Chrome
-$steamUrls = @(
-    "https://cdn.cloudflare.steamstatic.com/client/installer/SteamSetup.exe"
-)
+# Define the URLs and installation directories for Steam, Firefox, Chrome, Android Studio, FL Studio, and OBS Studio
+$steamUrl = "https://cdn.cloudflare.steamstatic.com/client/installer/SteamSetup.exe"
 $steamInstallDir = "C:\Program Files\Steam"
 $firefoxUrl = "https://download.mozilla.org/?product=firefox-latest&os=win64&lang=en-US"
 $firefoxInstallDir = "C:\Program Files\Mozilla Firefox"
 $chromeUrl = "https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi"
 $chromeInstallDir = "C:\Program Files\Google\Chrome"
+$androidStudioUrl = "https://redirector.gvt1.com/edgedl/android/studio/install/2020.3.1.22/android-studio-2020.3.1.22-windows.exe"
+$androidStudioInstallDir = "C:\Program Files\Android\Android Studio"
+$flStudioUrl = "https://demodownload.image-line.com/flstudio/flstudio_win64_21.0.3.3517.exe"
+$flStudioInstallDir = "C:\Program Files (x86)\Image-Line\FL Studio 20"
+$obsStudioUrl = "https://cdn-fastly.obsproject.com/downloads/OBS-Studio-27.0.1-Full-Installer-x64.exe"
+$obsStudioInstallDir = "C:\Program Files\obs-studio"
 
-# Check if Steam is already installed
+# Install Steam silently
 if (Test-Path -Path $steamInstallDir) {
-    Write-Host "Steam is already installed"
+    Write-Output "Steam is already installed"
 }
 else {
-    # Loop through the Steam URLs and download the Steam installer to a temporary directory
-    $tempDir = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(), "SoftwareInstall")
-    if (!(Test-Path -Path $tempDir)) {
-        New-Item -ItemType Directory -Path $tempDir | Out-Null
-    }
-    foreach ($url in $steamUrls) {
-        $fileName = [System.IO.Path]::GetFileName($url)
-        $tempFile = [System.IO.Path]::Combine($tempDir, $fileName)
-        $wc = New-Object System.Net.WebClient
-        $wc.DownloadFile($url, $tempFile)
-    }
-
-    # Install Steam silently
-    $arguments = @(
-        "/S",
-        "/D=`"$steamInstallDir`""
-    )
-    try {
-        Start-Process -FilePath $tempFile -ArgumentList $arguments -Wait
-        Write-Host "Successfully installed Steam"
-    }
-    catch {
-        Write-Host "Failed to install Steam"
-        Write-Host $Error[0].Exception.Message
-    }
-
-    # Clean up the temporary directory
-    Remove-Item -Path $tempDir -Recurse -Force
+    Invoke-WebRequest -Uri $steamUrl -OutFile "$env:TEMP\SteamSetup.exe"
+    Start-Process -FilePath "$env:TEMP\SteamSetup.exe" -ArgumentList "/S", "/D=`"$steamInstallDir`"" -Wait
 }
 
-# Check if Firefox is already installed
+# Install Firefox silently
 if (Test-Path -Path $firefoxInstallDir) {
-    Write-Host "Firefox is already installed"
+    Write-Output "Firefox is already installed"
 }
 else {
-    # Download and install Firefox silently
-    $tempFile = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(), "FirefoxSetup.exe")
-    $wc = New-Object System.Net.WebClient
-    $wc.DownloadFile($firefoxUrl, $tempFile)
-    $arguments = @(
-        "/S",
-        "/D=`"$firefoxInstallDir`""
-    )
-    try {
-        Start-Process -FilePath $tempFile -ArgumentList $arguments -Wait
-        Write-Host "Successfully installed Firefox"
-    }
-    catch {
-        Write-Host "Failed to install Firefox"
-        Write-Host $Error[0].Exception.Message
-    }
+    Invoke-WebRequest -Uri $firefoxUrl -OutFile "$env:TEMP\FirefoxSetup.exe"
+    Start-Process -FilePath "$env:TEMP\FirefoxSetup.exe" -ArgumentList "/S", "/D=`"$firefoxInstallDir`"" -Wait
 }
 
-# Check if Chrome is already installed
+# Install Chrome silently
 if (Test-Path -Path $chromeInstallDir) {
-    Write-Host "Chrome is already installed"
+    Write-Output "Chrome is already installed"
 }
 else {
-    # Download and install Chrome silently
-    $tempFile = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(), "ChromeSetup.msi")
-    $wc = New-Object System.Net.WebClient
-    $wc.DownloadFile($chromeUrl, $tempFile)
-    $arguments = @(
-        "/qn",
-        "/I `"$tempFile`""
-    )
-    try {
-        Start-Process -FilePath "msiexec.exe" -ArgumentList $arguments -Wait
-        Write-Host "Successfully installed Chrome"
-    }
-    catch {
-        Write-Host "Failed to install Chrome"
-        Write-Host $Error[0].Exception.Message
-    }
+    Invoke-WebRequest -Uri $chromeUrl -OutFile "$env:TEMP\ChromeSetup.msi"
+    Start-Process -FilePath msiexec.exe -ArgumentList "/i `"$env:TEMP\ChromeSetup.msi`" /qn /norestart" -Wait
 }
+
+# Install Android Studio silently
+if (Test-Path -Path $androidStudioInstallDir) {
+    Write-Output "Android Studio is already installed"
+}
+else {
+    Invoke-WebRequest -Uri $androidStudioUrl -OutFile "$env:TEMP\AndroidStudioSetup.exe"
+    Start-Process -FilePath "$env:TEMP\AndroidStudioSetup.exe" -ArgumentList "/S", "/D=`"$androidStudioInstallDir`"" -Wait
+}
+
+# Install FL Studio silently
+if (Test-Path -Path $flStudioInstallDir) {
+    Write-Output "FL Studio is already installed"
+}
+else {
+    Invoke-WebRequest -Uri $flStudioUrl -OutFile "$env:TEMP\FLStudioSetup.exe"
+    Start-Process -FilePath "$env:TEMP\FLStudioSetup.exe" -ArgumentList "/S", "/D=`"$flStudioInstallDir`"" -Wait
+}
+
+# Install OBS Studio silently
+if (Test-Path -Path $obsStudioInstallDir) {
+    Write-Output "OBS Studio is already installed"
+}
+else {
+    Invoke-WebRequest -Uri $obsStudioUrl -OutFile "$env:TEMP\OBSStudioSetup.exe"
+    Start-Process -FilePath "$env:TEMP\OBSStudioSetup.exe" -ArgumentList "/S", "/D=`"$obsStudioInstallDir`"" -Wait
+}
+
+Write-Output "Steam, Firefox, Chrome, Android Studio, FL Studio, and OBS Studio have been installed or updated."
