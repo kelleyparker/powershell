@@ -1,3 +1,4 @@
+# NOTE: Double if a download fails, double-check to be sure the URLs are still valid.  Generated with chatGPT gpt3 and Sage (Quora/Poe)
 # Define the URLs and installation directories for Steam, Firefox, Chrome, Android Studio, FL Studio, and OBS Studio
 $steamUrl = "https://cdn.cloudflare.steamstatic.com/client/installer/SteamSetup.exe"
 $steamInstallDir = "C:\Program Files\Steam"
@@ -66,4 +67,12 @@ else {
     Start-Process -FilePath "$env:TEMP\OBSStudioSetup.exe" -ArgumentList "/S", "/D=`"$obsStudioInstallDir`"" -Wait
 }
 
-Write-Output "Steam, Firefox, Chrome, Android Studio, FL Studio, and OBS Studio have been installed or updated."
+# Enable optional features
+Enable-WindowsOptionalFeature -Online -FeatureName Containers -NoRestart
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart
+Enable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -NoRestart
+Enable-WindowsOptionalFeature -Online -FeatureName TelnetClient -NoRestart
+Enable-WindowsOptionalFeature -Online -FeatureName TFTP -NoRestart
+Enable-WindowsOptionalFeature -Online -FeatureName "Containers-DisposableClientVM" -NoRestart
+Enable-WindowsOptionalFeature -Online -FeatureName "VirtualMachinePlatform" -NoRestart
+Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux" -NoRestart
