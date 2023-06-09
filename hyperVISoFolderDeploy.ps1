@@ -2,7 +2,7 @@
 $MemoryStartupBytes = 2GB
 $NewVHDSizeBytes = 40GB
 $ISOPath = "D:\isos"
-$VMPath = "C:\VMs"
+$VMPath = "D:\VMs"
 
 # Loop through each ISO and create a VM
 Get-ChildItem $ISOPath -Filter *.iso | ForEach-Object {
