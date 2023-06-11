@@ -10,6 +10,10 @@ function InstallSoftware($url, $installDir, $displayName) {
         if ($url -like "*.msi") {
             Start-Process -FilePath msiexec.exe -ArgumentList "/i `"$downloadPath`" /qn /norestart" -Wait
         }
+        elseif ($displayName -eq "Audacity") {
+           $exeArguments = "/VERYSILENT /NORESTART"
+            Start-Process -FilePath $downloadPath -ArgumentList $exeArguments -Wait
+        }
         else {
             Start-Process -FilePath $downloadPath -ArgumentList "/S", "/D=`"$installDir`"" -Wait
         }
@@ -71,11 +75,6 @@ $softwareList = @(
         "DisplayName" = "AWS Command Line Interface (CLI)"
     },
     @{
-        "Url" = "https://get.videolan.org/vlc/3.0.18/win64/vlc-3.0.18-win64.exe"
-        "InstallDir" = "C:\Program Files\VideoLAN\VLC"
-        "DisplayName" = "VLC media player"
-    },
-    @{
         "Url" = "https://www.wireshark.org/download/win64/all-versions/Wireshark-win64-3.4.7.exe"
         "InstallDir" = "C:\Program Files\Wireshark"
         "DisplayName" = "Wireshark"
@@ -94,6 +93,11 @@ $softwareList = @(
         "Url" = "https://edge.elgato.com/egc/windows/eccw/1.4.2/ControlCenter_1.4.2.67_x64.msi"
         "InstallDir" = "C:\Program Files\Elgato\Control Center"
         "DisplayName" = "Elgato Control Center"
+    }
+    @{
+        "Url" = "https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe"
+        "InstallDir" = "C:\Program Files\Docker Desktop"
+        "DisplayName" = "Docker Desktop"
     }
 )
 
