@@ -34,11 +34,7 @@ $epicGamesLauncherInstallDir = "C:\Program Files\Epic Games Launcher"
 $everythingUrl = "https://www.voidtools.com/Everything-1.4.1.1024.x64-Setup.exe"
 $everythingInstallDir = "C:\Program Files\Everything"
 
-$filezillaUrl = "https://download.filezilla-project.org/client/FileZilla_3.64.0_win64_sponsored2-setup.exe"
-$filezillaInstallDir = "C:\Program Files\FileZilla"
 
-$flStudioUrl = "https://demodownload.image-line.com/flstudio/flstudio_win64_21.0.3.3517.exe"
-$flStudioInstallDir = "C:\Program Files\Image-Line\FL Studio 21"
 
 
 # Install Steam silently
@@ -113,12 +109,60 @@ else {
 }
 
 
-# Enable optional features
-Enable-WindowsOptionalFeature -Online -FeatureName Containers -NoRestart
-Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart
-Enable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -NoRestart
-Enable-WindowsOptionalFeature -Online -FeatureName TelnetClient -NoRestart
-Enable-WindowsOptionalFeature -Online -FeatureName TFTP -NoRestart
-Enable-WindowsOptionalFeature -Online -FeatureName "Containers-DisposableClientVM" -NoRestart
-Enable-WindowsOptionalFeature -Online -FeatureName "VirtualMachinePlatform" -NoRestart
-Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux" -NoRestart
+# Install Elgato Control Center silently
+if (Test-Path -Path $elgatoControlCenterInstallDir) {
+    Write-Output "Elgato Control Center is already installed"
+}
+else {
+    Write-Output "Installing Elgato Control Center..."
+    Invoke-WebRequest -Uri $elgatoControlCenterUrl -OutFile "$env:TEMP\ElgatoControlCenterSetup.msi"
+    Start-Process -FilePath msiexec.exe -ArgumentList "/i `"$env:TEMP\ElgatoControlCenterSetup.msi`" /qn /norestart" -Wait
+}
+
+# Install Elgato Wave Link silently
+if (Test-Path -Path $elgatoWaveLinkInstallDir) {
+    Write-Output "Elgato Wave Link is already installed"
+}
+else {
+    Write-Output "Installing Elgato Wave Link..."
+    Invoke-WebRequest -Uri $elgatoWaveLinkUrl -OutFile "$env:TEMP\ElgatoWaveLinkSetup.msi"
+    Start-Process -FilePath msiexec.exe -ArgumentList "/i `"$env:TEMP\ElgatoWaveLinkSetup.msi`" /qn /norestart" -Wait
+}
+
+# Install Epic Games Launcher silently
+if (Test-Path -Path $epicGamesLauncherInstallDir) {
+    Write-Output "Epic Games Launcher is already installed"
+}
+else {
+    Write-Output "Installing Epic Games Launcher..."
+    Invoke-WebRequest -Uri $epicGamesLauncherUrl -OutFile "$env:TEMP\EpicGamesLauncherSetup.msi"
+    Start-Process -FilePath msiexec.exe -ArgumentList "/i `"$env:TEMP\EpicGamesLauncherSetup.msi`" /qn /norestart" -Wait
+}
+
+# Install Everything silently
+if (Test-Path -Path $everythingInstallDir) {
+    Write-Output "Everything is already installed"
+}
+else {
+    Write-Output "Installing Everything..."
+    Invoke-WebRequest -Uri $everythingUrl -OutFile "$env:TEMP\EverythingSetup.exe"
+    Start-Process -FilePath "$env:TEMP\EverythingSetup.exe" -ArgumentList "/S", "/D=`"$everythingInstallDir`"" -Wait
+}
+
+
+# Enable optional features [during test, these lines will not work in Windows Sandbox]
+$featureNames = @(
+    "Containers",
+    "Microsoft-Hyper-V",
+    "SMB1Protocol",
+    "TelnetClient",
+    "TFTP",
+    "Containers-DisposableClientVM",
+    "VirtualMachinePlatform",
+    "Microsoft-Windows-Subsystem-Linux"
+)
+
+foreach ($featureName in $featureNames) {
+    Write-Output "Enabling feature: $featureName"
+    Enable-WindowsOptionalFeature -Online -FeatureName $featureName -NoRestart
+}
