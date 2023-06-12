@@ -48,6 +48,7 @@ $softwareList = @(
         "Url" = "https://redirector.gvt1.com/edgedl/android/studio/install/2020.3.1.22/android-studio-2020.3.1.22-windows.exe"
         "InstallDir" = "C:\Program Files\Android\Android Studio"
         "DisplayName" = "Android Studio"
+    },
     @{
         "Url" = "https://download.oracle.com/java/20/latest/jdk-20_windows-x64_bin.msi"
         "InstallDir" = "C:\Program Files\Java\jdk"
