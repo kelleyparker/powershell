@@ -15,7 +15,7 @@ function InstallSoftware($url, $installDir, $displayName) {
             Start-Process -FilePath $downloadPath -ArgumentList $exeArguments -Wait
         }
         elseif ($displayName -eq "Docker Desktop") {
-            $exeArguments = "--quiet", "--accept-license", "--no-windows-containers", "--allowed-org=<org name>", "--backend=hyperv", "--installation-dir=C:\Program Files\Docker\Docker", "--admin-settings='{\"configurationFileVersion\": 2, \"enhancedContainerIsolation\": {\"value\": true, \"locked\": false}}'"
+            $exeArguments = "--quiet", "--accept-license", "--installation-dir=C:\Program Files\Docker\Docker"
             Start-Process -FilePath $downloadPath -ArgumentList $exeArguments -Wait
         }
         else {
