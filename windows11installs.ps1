@@ -31,6 +31,11 @@ function InstallSoftware($url, $installDir, $displayName) {
 $softwareList = @(
     @{
         "Url" = "https://cdn.cloudflare.steamstatic.com/client/installer/SteamSetup.exe"
+        "InstallDir" = "C:\Program Files\Android\Android Studio Canary 7 Hedgehog 2023.1.1 "
+        "DisplayName" = "Steam"
+    },
+    @{
+        "Url" = "https://redirector.gvt1.com/edgedl/android/studio/install/2023.1.1.7/android-studio-2023.1.1.7-windows.exe"
         "InstallDir" = "C:\Program Files\Steam"
         "DisplayName" = "Steam"
     },
