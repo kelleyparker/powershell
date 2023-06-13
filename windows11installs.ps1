@@ -77,6 +77,11 @@ $softwareList = @(
         "Url" = "https://www.7-zip.org/a/7z2300-x64.exe"
         "InstallDir" = "C:\Program Files\7-Zip"
         "DisplayName" = "7-Zip"
+    @{
+        "Url" = "https://dl-ptb.discordapp.net/distro/app/ptb/win/x86/1.0.1027/DiscordPTBSetup.exe"
+        "InstallDir" = "C:\Program Files\Discord"
+        "DisplayName" = "Discord Public Test Beta"
+    },
     },
     @{
         "Url" = "https://github.com/audacity/audacity/releases/download/Audacity-3.3.3/audacity-win-3.3.3-x64.exe"
