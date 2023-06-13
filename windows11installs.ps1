@@ -70,11 +70,11 @@ $softwareList = @(
         "Url" = "https://www.7-zip.org/a/7z2300-x64.exe"
         "InstallDir" = "C:\Program Files\7-Zip"
         "DisplayName" = "7-Zip"
+    },
     @{
         "Url" = "https://dl-ptb.discordapp.net/distro/app/ptb/win/x86/1.0.1027/DiscordPTBSetup.exe"
         "InstallDir" = "C:\Program Files\Discord"
         "DisplayName" = "Discord Public Test Beta"
-    },
     },
     @{
         "Url" = "https://github.com/audacity/audacity/releases/download/Audacity-3.3.3/audacity-win-3.3.3-x64.exe"
@@ -105,12 +105,13 @@ $softwareList = @(
         "Url" = "https://edge.elgato.com/egc/windows/eccw/1.4.2/ControlCenter_1.4.2.67_x64.msi"
         "InstallDir" = "C:\Program Files\Elgato\Control Center"
         "DisplayName" = "Elgato Control Center"
-    }
+    },
     @{
         "Url" = "https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe"
         "InstallDir" = "C:\Program Files\Docker Desktop"
         "DisplayName" = "Docker Desktop"
     }
+    
 )
 
 foreach ($software in $softwareList) {
