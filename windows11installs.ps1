@@ -14,6 +14,10 @@ function InstallSoftware($url, $installDir, $displayName) {
            $exeArguments = "/VERYSILENT /NORESTART"
             Start-Process -FilePath $downloadPath -ArgumentList $exeArguments -Wait
         }
+        elseif ($displayName -eq "Docker Desktop") {
+            $exeArguments = "--quiet", "--accept-license", "--no-windows-containers", "--allowed-org=<org name>", "--backend=hyperv", "--installation-dir=C:\Program Files\Docker\Docker", "--admin-settings='{\"configurationFileVersion\": 2, \"enhancedContainerIsolation\": {\"value\": true, \"locked\": false}}'"
+            Start-Process -FilePath $downloadPath -ArgumentList $exeArguments -Wait
+        }
         else {
             Start-Process -FilePath $downloadPath -ArgumentList "/S", "/D=`"$installDir`"" -Wait
         }
@@ -35,7 +39,7 @@ $softwareList = @(
         "DisplayName" = "Steam"
     },
     @{
-        "Url" = "https://redirector.gvt1.com/edgedl/android/studio/install/2023.1.1.7/android-studio-2023.1.1.7-windows.exe"
+        "Url" = "https://cdn.cloudflare.steamstatic.com/client/installer/SteamSetup.exe"
         "InstallDir" = "C:\Program Files\Steam"
         "DisplayName" = "Steam"
     },
