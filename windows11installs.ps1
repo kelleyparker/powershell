@@ -21,13 +21,6 @@ function InstallSoftware($url, $installDir, $displayName) {
         else {
             Start-Process -FilePath $downloadPath -ArgumentList "/S", "/D=`"$installDir`"" -Wait
         }
-
-        if (Test-Path -Path $installDir) {
-            Write-Output "Install of $displayName succeeded!"
-        }
-        else {
-            Write-Output "Install of $displayName failed!"
-        }
     }
 }
 
