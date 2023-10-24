@@ -1,4 +1,7 @@
-﻿# Array of TCP destination ports to open
+﻿# Opening TCP and UDP ports as per requirements to open NAT on Destiny 2.  
+# Source:  https://help.bungie.net/hc/en-us/articles/360049496751-Advanced-Troubleshooting-UPnP-Port-Forwarding-and-NAT-Types
+
+# Array of TCP destination ports to open
 $tcpPorts = @(80, 443, 1119..1120, 3074, 3724, 4000, 6112..6114, 7500..7509, 30000..30009)
 
 # Array of UDP destination ports to open
