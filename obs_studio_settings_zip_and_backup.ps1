@@ -1,5 +1,5 @@
-#PowerShell Script: Weekly Backup and Transfer for OBS studio configuration
-#
+#PowerShell Script: Weekly Backup and Transfer for OBS studio configuration on a Windows Computer
+# The default OBS Studio configuration location is: C:\Users\[_USERNAME_]\AppData\Roaming\obs-studio
 # This PowerShell script automates a weekly backup process:
 #
 # It compresses a folder located at [WINDOWS LOCATION HERE] into a ZIP file, appending the current date in YYYY-MM-DD format.
