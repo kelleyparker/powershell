@@ -1,3 +1,4 @@
+# COMMENT: Used this at Katmai
 # Interactive SSH Server Menu that maps to a PEM file
 
 # Define your SSH parameters
